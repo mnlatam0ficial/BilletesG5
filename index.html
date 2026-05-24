@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M.N LATAM | Billetes G5</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<meta property="og:title" content="M.N LATAM | Billetes G5" />
+<meta property="og:description" content="Billetes del Banco de México con la más alta calidad. Utilería visual de alta fidelidad para rodajes, videos musicales y producción audiovisual." />
+<meta property="og:image" content="https://mnlatam0ficial.github.io/BilletesG5/favicon.png" />
+<meta property="og:url" content="https://mnlatam0ficial.github.io/BilletesG5" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="M.N LATAM | Billetes G5" />
+<meta name="twitter:description" content="Billetes del Banco de México con la más alta calidad." />
+<meta name="twitter:image" content="https://mnlatam0ficial.github.io/BilletesG5/favicon.png" />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg: #f8f7f4;
+  --white: #ffffff;
+  --ink: #111008;
+  --mid: #5c5849;
+  --muted: #9e9886;
+  --border: #e4e0d5;
+  --c50:   #3a7d5a;
+  --c100:  #7b3fa0;
+  --c200:  #b84a2e;
+  --c500:  #2a5f9e;
+  --c1000: #1a1a1a;
+  --gold: #c9a84c;
+  --gold-bg: #fdf6e3;
+  --green-cta: #1e4d38;
+  --green-cta-h: #2a6b4f;
+  --cart-accent: #e85d04;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* card-cta-direct como button */
+button.card-cta-direct {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px;
+  background:#25d366; color:#fff; border:none; border-radius:8px;
+  font-size:0.78rem; font-weight:700; letter-spacing:.3px;
+  cursor:pointer; transition:.2s;
+  font-family:'Plus Jakarta Sans', sans-serif;
+}
+button.card-cta-direct:hover { background:#1fbd59; transform:translateY(-1px); }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:300;
+  background: rgba(248,247,244,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  height: 64px; padding: 0 5vw;
+  display: flex; align-items:center; justify-content:space-between;
+}
+.logo { font-family:'Lora',serif; font-size:1.25rem; font-weight:700; color:var(--ink); text-decoration:none; }
+.logo em { color:var(--gold); font-style:normal; }
+.nav-right { display:flex; align-items:center; gap:12px; }
+.nav-pill {
+  display:inline-flex; align-items:center;
+  background:var(--green-cta); color:#fff;
+  padding:9px 18px; border-radius:100px;
+  font-size:0.82rem; font-weight:600; text-decoration:none;
+  transition:.2s;
+}
+.nav-pill:hover { background:var(--green-cta-h); }
+
+/* CART BUTTON NAV */
+.cart-nav-btn {
+  position:relative; background:var(--ink); color:#fff;
+  border:none; border-radius:100px;
+  padding:9px 18px; font-size:0.82rem; font-weight:600;
+  cursor:pointer; display:flex; align-items:center; gap:8px;
+  transition:.2s; font-family:'Plus Jakarta Sans',sans-serif;
+}
+.cart-nav-btn:hover { background:#333; }
+.cart-count {
+  background:var(--cart-accent); color:#fff;
+  font-size:0.65rem; font-weight:800;
+  min-width:18px; height:18px; border-radius:100px;
+  display:flex; align-items:center; justify-content:center;
+  padding:0 4px;
+}
+.cart-count.hidden { display:none; }
+
+/* ── CART PANEL ── */
+.cart-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.5);
+  z-index:400; opacity:0; pointer-events:none;
+  transition:.3s;
+}
+.cart-overlay.open { opacity:1; pointer-events:all; }
+.cart-panel {
+  position:fixed; top:0; right:0; bottom:0;
+  width:min(420px,100vw);
+  background:#fff; z-index:500;
+  transform:translateX(100%); transition:.35s cubic-bezier(.4,0,.2,1);
+  display:flex; flex-direction:column;
+  box-shadow:-8px 0 40px rgba(0,0,0,0.15);
+}
+.cart-panel.open { transform:translateX(0); }
+.cart-header {
+  padding:20px 24px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.cart-header h3 { font-family:'Lora',serif; font-size:1.2rem; font-weight:700; }
+.cart-close {
+  background:var(--bg); border:none; border-radius:50%;
+  width:36px; height:36px; cursor:pointer; font-size:1.1rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:.2s;
+}
+.cart-close:hover { background:var(--border); }
+.cart-items { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
+.cart-empty {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:12px;
+  color:var(--muted); text-align:center; padding:40px;
+}
+.cart-empty-icon { font-size:3rem; }
+.cart-empty p { font-size:0.9rem; }
+.cart-item {
+  background:var(--bg); border-radius:10px; padding:14px;
+  display:flex; gap:12px; align-items:center;
+  border:1px solid var(--border); transition:.2s;
+}
+.cart-item-color {
+  width:40px; height:40px; border-radius:8px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.55rem; color:rgba(255,255,255,0.6);
+  font-weight:700; letter-spacing:1px; text-transform:uppercase;
+  text-align:center; line-height:1.3;
+}
+.cart-item-info { flex:1; min-width:0; }
+.cart-item-name { font-size:0.82rem; font-weight:700; color:var(--ink); }
+.cart-item-detail { font-size:0.72rem; color:var(--muted); }
+.cart-item-price { font-size:0.95rem; font-weight:800; color:var(--green-cta); white-space:nowrap; }
+.cart-item-qty {
+  display:flex; align-items:center; gap:6px;
+}
+.qty-btn {
+  background:#fff; border:1px solid var(--border); border-radius:6px;
+  width:26px; height:26px; cursor:pointer; font-size:0.9rem;
+  display:flex; align-items:center; justify-content:center;
+  transition:.15s; font-weight:700;
+}
+.qty-btn:hover { background:var(--border); }
+.qty-num { font-size:0.85rem; font-weight:700; min-width:20px; text-align:center; }
+.cart-remove {
+  background:none; border:none; color:var(--muted); cursor:pointer;
+  font-size:1rem; padding:4px; border-radius:4px; transition:.2s;
+  line-height:1;
+}
+.cart-remove:hover { color:#e74c3c; background:#fee; }
+.cart-footer {
+  padding:20px 24px; border-top:1px solid var(--border);
+  display:flex; flex-direction:column; gap:14px;
+}
+.cart-total-row {
+  display:flex; justify-content:space-between; align-items:center;
+}
+.cart-total-label { font-size:0.85rem; color:var(--mid); font-weight:500; }
+.cart-total-val { font-size:1.4rem; font-weight:800; color:var(--green-cta); }
+.cart-wa-btn {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  background:#25d366; color:#fff; border:none; border-radius:10px;
+  padding:16px; font-size:0.95rem; font-weight:700;
+  cursor:pointer; text-decoration:none; transition:.2s;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.cart-wa-btn:hover { background:#1fbd59; transform:translateY(-1px); }
+.cart-wa-btn svg { flex-shrink:0; }
+.cart-wa-btn:disabled { opacity:.5; cursor:not-allowed; transform:none; }
+.cart-clear-btn {
+  background:none; border:1px solid var(--border); color:var(--muted);
+  border-radius:8px; padding:10px; font-size:0.78rem; font-weight:600;
+  cursor:pointer; transition:.2s; font-family:'Plus Jakarta Sans',sans-serif;
+}
+.cart-clear-btn:hover { border-color:#e74c3c; color:#e74c3c; }
+
+/* ADDED TO CART TOAST */
+.toast {
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px);
+  background:var(--ink); color:#fff; padding:12px 24px; border-radius:100px;
+  font-size:0.85rem; font-weight:600; z-index:600;
+  transition:.35s cubic-bezier(.4,0,.2,1);
+  white-space:nowrap; box-shadow:0 8px 24px rgba(0,0,0,0.25);
+  display:flex; align-items:center; gap:8px;
+}
+.toast.show { transform:translateX(-50%) translateY(0); }
+
+/* ── HERO ── */
+.hero {
+  padding: 120px 5vw 80px;
+  text-align: center;
+  background: linear-gradient(to bottom, #fff 0%, var(--bg) 100%);
+  border-bottom: 1px solid var(--border);
+}
+.hero-chip {
+  display: inline-flex; align-items:center; gap:6px;
+  background: var(--gold-bg); border:1px solid #e8d89a;
+  color: #8a6a10; font-size:0.75rem; font-weight:600;
+  letter-spacing:.8px; text-transform:uppercase;
+  padding:5px 14px; border-radius:100px; margin-bottom:24px;
+}
+.hero h1 {
+  font-family:'Lora',serif; font-size:clamp(2.2rem,5vw,3.6rem);
+  font-weight:700; line-height:1.15; margin-bottom:18px; color:var(--ink);
+}
+.hero h1 em { color:var(--green-cta); font-style:italic; }
+.hero-desc {
+  font-size:1.05rem; color:var(--mid); max-width:540px;
+  margin:0 auto 36px; font-weight:400; line-height:1.8;
+}
+.hero-note {
+  display:inline-flex; align-items:center; gap:8px;
+  background:#fff; border:1px solid var(--border);
+  padding:10px 20px; border-radius:8px;
+  font-size:0.82rem; color:var(--mid);
+}
+.hero-note strong { color:var(--ink); }
+
+/* BILL STRIP */
+.bill-strip {
+  display:flex; justify-content:center; gap:14px; flex-wrap:wrap;
+  margin-top:48px;
+}
+.mini-bill {
+  width:130px; height:68px; border-radius:6px;
+  display:flex; flex-direction:column;
+  justify-content:space-between; padding:10px 12px;
+  position:relative; overflow:hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  cursor:default; transition:.25s;
+
+  /* TEXTURE SUPPORT: si existe la imagen, se muestra encima del color */
+  background-size: cover;
+  background-position: center;
+}
+.mini-bill:hover { transform:translateY(-5px) rotate(1deg); box-shadow:0 14px 30px rgba(0,0,0,0.22); }
+.mini-bill::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(45deg,transparent,transparent 5px,rgba(255,255,255,0.04) 5px,rgba(255,255,255,0.04) 10px);
+}
+.mb-inner {
+  border:1px solid rgba(255,255,255,0.18); border-radius:3px;
+  padding:6px 8px; position:relative; height:100%;
+  display:flex; flex-direction:column; justify-content:space-between;
+  background: rgba(0,0,0,0.18); /* semi-transparente para que se vea la textura */
+}
+.mb-denom { font-family:'Lora',serif; font-size:1.3rem; font-weight:700; color:#fff; line-height:1; }
+.mb-label { font-size:0.45rem; color:rgba(255,255,255,0.75); letter-spacing:1.5px; text-transform:uppercase; }
+.mb-stamp { font-size:0.38rem; color:rgba(255,255,255,0.6); letter-spacing:1px; text-transform:uppercase; align-self:flex-end; border:1px solid rgba(255,255,255,0.3); padding:1px 4px; border-radius:1px; }
+.mb-50   { background-color:var(--c50); background-image:url('textures/50.jpg'); }
+.mb-100  { background-color:var(--c100); background-image:url('textures/100.jpg'); }
+.mb-200  { background-color:var(--c200); background-image:url('textures/200.jpg'); }
+.mb-500  { background-color:var(--c500); background-image:url('textures/500.jpg'); }
+.mb-1000 { background-color:var(--c1000); background-image:url('textures/1000.jpg'); border:1px solid #333; }
+.mb-name { margin-top:8px; font-size:0.7rem; font-weight:600; color:var(--mid); text-align:center; }
+
+/* ── SECTION ── */
+.section { padding: 80px 5vw; }
+.section-alt { background:#fff; }
+.sec-head { max-width:680px; margin:0 auto 52px; text-align:center; }
+.sec-tag {
+  display:inline-block; background:var(--gold-bg); color:#8a6a10;
+  font-size:0.68rem; font-weight:700; letter-spacing:2px;
+  text-transform:uppercase; padding:4px 12px; border-radius:100px;
+  margin-bottom:14px; border:1px solid #e8d89a;
+}
+.sec-head h2 {
+  font-family:'Lora',serif; font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:700; line-height:1.2; margin-bottom:12px;
+}
+.sec-head p { font-size:0.95rem; color:var(--mid); line-height:1.8; }
+
+/* ── PRODUCT CARDS ── */
+.products-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
+  gap:20px; max-width:1200px; margin:0 auto;
+}
+.prod-card {
+  background:var(--white); border:1.5px solid var(--border);
+  border-radius:14px; overflow:hidden;
+  transition: all .25s; display:flex; flex-direction:column;
+  position:relative;
+}
+.prod-card:hover { border-color:#c9a84c50; box-shadow:0 12px 36px rgba(0,0,0,0.09); transform:translateY(-3px); }
+.prod-card.hot { border-color:var(--gold); }
+
+/* BILL CALIDAD TOP */
+.card-bill-top {
+  padding:24px 24px 20px;
+  position:relative; overflow:hidden;
+  min-height:110px; display:flex; align-items:center;
+
+  /* TEXTURE SUPPORT */
+  background-size: cover;
+  background-position: center;
+}
+/* Denominaciones con textura */
+.card-bill-top.denom-50   { background-color:var(--c50);   background-image:url('textures/50.jpg'); }
+.card-bill-top.denom-100  { background-color:var(--c100);  background-image:url('textures/100.jpg'); }
+.card-bill-top.denom-200  { background-color:var(--c200);  background-image:url('textures/200.jpg'); }
+.card-bill-top.denom-500  { background-color:var(--c500);  background-image:url('textures/500.jpg'); }
+.card-bill-top.denom-1000 { background-color:var(--c1000); background-image:url('textures/1000.jpg'); }
+.card-bill-top.mixed {
+  background: linear-gradient(135deg, var(--c50) 0%, var(--c200) 100%);
+}
+.card-bill-top::before {
+  content:''; position:absolute; inset:0;
+  background: repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(0,0,0,0.04) 6px,rgba(0,0,0,0.04) 12px);
+}
+/* overlay oscuro suave para mantener legibilidad sobre la textura */
+.card-bill-top::after {
+  content:''; position:absolute; inset:0;
+  background: rgba(0,0,0,0.22);
+  pointer-events:none;
+}
+.bill-face {
+  position:relative; z-index:1;
+  width:100%;
+}
+.bf-row { display:flex; justify-content:space-between; align-items:flex-start; }
+.bf-series { font-size:0.6rem; color:rgba(255,255,255,0.75); letter-spacing:2px; text-transform:uppercase; }
+.bf-amount { font-family:'Lora',serif; font-size:2.8rem; font-weight:700; color:#fff; line-height:1; text-shadow:0 2px 8px rgba(0,0,0,0.4); }
+.bf-name { font-size:0.65rem; color:rgba(255,255,255,0.6); letter-spacing:1.5px; text-transform:uppercase; margin-top:2px; }
+.bf-pieces-badge {
+  background:rgba(0,0,0,0.35); backdrop-filter:blur(4px);
+  color:#fff; font-size:0.7rem; font-weight:600;
+  padding:4px 10px; border-radius:100px;
+  border:1px solid rgba(255,255,255,0.25);
+  white-space:nowrap;
+}
+.bf-stamp {
+  position:absolute; right:0; bottom:-4px;
+  font-size:0.5rem; color:rgba(255,255,255,0.55);
+  letter-spacing:1.5px; text-transform:uppercase;
+  border:1px solid rgba(255,255,255,0.3); padding:2px 6px;
+  border-radius:2px; transform:rotate(-5deg);
+}
+.denom-chips { display:flex; gap:6px; flex-wrap:wrap; }
+.denom-chip {
+  background:rgba(0,0,0,0.3); color:#fff;
+  font-size:0.65rem; font-weight:700; padding:3px 10px; border-radius:100px;
+  border:1px solid rgba(255,255,255,0.25);
+}
+
+/* HOT BADGE */
+.hot-label {
+  position:absolute; top:12px; right:12px; z-index:10;
+  background:var(--gold); color:#fff;
+  font-size:0.6rem; font-weight:800; letter-spacing:1.5px; text-transform:uppercase;
+  padding:4px 10px; border-radius:100px;
+}
+
+/* CARD BODY */
+.card-body { padding:20px 22px 22px; display:flex; flex-direction:column; flex:1; }
+.card-label { font-size:0.75rem; font-weight:700; color:var(--ink); margin-bottom:14px; }
+.card-meta-row {
+  display:flex; justify-content:space-between;
+  background:var(--bg); border-radius:8px;
+  padding:14px 16px; margin-bottom:14px;
+}
+.meta-item { display:flex; flex-direction:column; gap:2px; }
+.meta-l { font-size:0.62rem; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:.8px; }
+.meta-v { font-size:1.05rem; font-weight:700; color:var(--ink); }
+.meta-v.invest { color:var(--green-cta); font-size:1.2rem; }
+
+/* ACTION BUTTONS */
+.card-actions { display:flex; gap:8px; margin-top:auto; }
+.card-cta-direct {
+  flex:1; display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 10px;
+  background:#25d366; color:#fff; border:none; border-radius:8px;
+  font-size:0.78rem; font-weight:700; letter-spacing:.3px;
+  text-decoration:none; cursor:pointer; transition:.2s;
+  font-family:'Plus Jakarta Sans',sans-serif;
+}
+.card-cta-direct:hover { background:#1fbd59; transform:translateY(-1px); }
+.card-cta-cart {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  padding:11px 14px;
+  background:var(--ink); color:#fff; border:none; border-radius:8px;
+  font-size:0.78rem; font-weight:700;
+  cursor:pointer; transition:.2s;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  white-space:nowrap;
+}
+.card-cta-cart:hover { background:var(--cart-accent); transform:translateY(-1px); }
+.card-cta-cart.added { background:var(--green-cta); }
+
+/* ── WHOLESALE ── */
+.wholesale-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:24px; max-width:900px; margin:0 auto;
+}
+.ws-card {
+  border-radius:14px; overflow:hidden;
+  background:var(--ink); position:relative;
+}
+.ws-card.gold-tier { background: linear-gradient(135deg,#2a1e05,#1a1500); border:1.5px solid var(--gold); }
+.ws-top {
+  padding:32px 28px 24px;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  position:relative; overflow:hidden;
+}
+.ws-top::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 80% 50%, rgba(255,255,255,0.04) 0%, transparent 60%);
+}
+.ws-tier-badge {
+  display:inline-block; font-size:0.62rem; font-weight:700;
+  letter-spacing:2px; text-transform:uppercase;
+  padding:4px 12px; border-radius:100px; margin-bottom:14px;
+}
+.silver .ws-tier-badge { background:rgba(192,192,192,0.15); color:#c0c0c0; border:1px solid rgba(192,192,192,0.3); }
+.gold-tier .ws-tier-badge { background:rgba(201,168,76,0.2); color:var(--gold); border:1px solid rgba(201,168,76,0.4); }
+.ws-name { font-family:'Lora',serif; font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:4px; }
+.ws-sub { font-size:0.82rem; color:rgba(255,255,255,0.4); }
+.ws-body { padding:24px 28px 28px; }
+.ws-pricing { display:flex; justify-content:space-between; margin-bottom:24px; }
+.ws-p { display:flex; flex-direction:column; gap:3px; }
+.ws-pl { font-size:0.62rem; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px; }
+.ws-vv { font-size:1.1rem; font-weight:600; color:rgba(255,255,255,0.45); }
+.ws-iv { font-size:1.8rem; font-weight:800; }
+.silver .ws-iv { color:#fff; }
+.gold-tier .ws-iv { color:var(--gold); }
+.ws-actions { display:flex; gap:10px; flex-direction:column; }
+.ws-cta {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px; border-radius:8px; text-decoration:none;
+  font-size:0.85rem; font-weight:700; transition:.2s;
+  border:none; cursor:pointer; font-family:'Plus Jakarta Sans',sans-serif;
+}
+.silver .ws-cta { background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(255,255,255,0.15); }
+.silver .ws-cta:hover { background:rgba(255,255,255,0.15); }
+.gold-tier .ws-cta { background:var(--gold); color:#1a1500; }
+.gold-tier .ws-cta:hover { background:#e0bc5a; }
+.ws-cta-wa {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  padding:13px; border-radius:8px;
+  background:#25d366; color:#fff;
+  font-size:0.85rem; font-weight:700; transition:.2s;
+  text-decoration:none; cursor:pointer;
+}
+.ws-cta-wa:hover { background:#1fbd59; }
+
+/* ── LOGISTICS ── */
+.lg-grid {
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:16px; max-width:1000px; margin:0 auto;
+}
+.lg-card {
+  background:var(--white); border:1.5px solid var(--border);
+  border-radius:12px; padding:24px 20px; transition:.25s;
+}
+.lg-card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.07); transform:translateY(-2px); }
+.lg-icon { font-size:1.6rem; margin-bottom:12px; }
+.lg-num { font-size:0.62rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.lg-title { font-size:0.95rem; font-weight:700; color:var(--ink); margin-bottom:6px; }
+.lg-desc { font-size:0.82rem; color:var(--mid); line-height:1.7; }
+.lg-detail { display:inline-block; margin-top:10px; font-size:0.72rem; font-weight:600; color:var(--green-cta); }
+.legal-box {
+  max-width:760px; margin:40px auto 0;
+  background:#fff; border:1.5px solid var(--border);
+  border-radius:12px; padding:20px 24px;
+  display:flex; gap:14px; align-items:flex-start;
+}
+.legal-box p { font-size:0.82rem; color:var(--mid); line-height:1.7; }
+.legal-box strong { color:var(--ink); }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  padding:80px 5vw; text-align:center;
+  background:var(--green-cta); color:#fff;
+}
+.final-cta h2 { font-family:'Lora',serif; font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:700; margin-bottom:12px; }
+.final-cta p { color:rgba(255,255,255,0.65); margin-bottom:36px; max-width:480px; margin-left:auto; margin-right:auto; }
+.cta-row { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.btn-wa {
+  display:inline-flex; align-items:center; gap:10px;
+  background:#25d366; color:#fff;
+  padding:14px 28px; border-radius:100px;
+  font-size:0.9rem; font-weight:700; text-decoration:none; transition:.2s;
+}
+.btn-wa:hover { background:#1fbd59; transform:translateY(-2px); }
+.btn-mail {
+  display:inline-flex; align-items:center;
+  background:rgba(255,255,255,0.12); color:#fff;
+  border:1.5px solid rgba(255,255,255,0.25);
+  padding:14px 28px; border-radius:100px;
+  font-size:0.9rem; font-weight:600; text-decoration:none; transition:.2s;
+}
+.btn-mail:hover { background:rgba(255,255,255,0.2); }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--ink); color:rgba(255,255,255,0.35);
+  padding:28px 5vw;
+  display:flex; flex-wrap:wrap; gap:12px;
+  justify-content:space-between; align-items:center;
+  font-size:0.75rem;
+}
+footer a { color:var(--gold); text-decoration:none; font-weight:700; font-family:'Lora',serif; font-size:0.9rem; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .wholesale-grid { grid-template-columns:1fr; }
+  .lg-grid { grid-template-columns:1fr 1fr; }
+  .bill-strip { gap:8px; }
+  .mini-bill { width:110px; height:58px; }
+  .nav-pill { display:none; }
+}
+@media(max-width:480px){
+  .lg-grid { grid-template-columns:1fr; }
+  .card-actions { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">M.N <em>LATAM</em></a>
+  <div class="nav-right">
+    <button class="cart-nav-btn" id="cartNavBtn">
+      🛒 Carrito
+      <span class="cart-count hidden" id="cartCount">0</span>
+    </button>
+    <a href="#contacto" class="nav-pill">Cotizar</a>
+  </div>
+</nav>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h3>🛒 Tu Pedido</h3>
+    <button class="cart-close" id="cartCloseBtn">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">📦</div>
+      <p>Tu carrito está vacío.<br>Agrega paquetes para cotizar.</p>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total de inversión</span>
+      <span class="cart-total-val" id="cartTotal">$0</span>
+    </div>
+    <button class="cart-wa-btn" id="cartWaBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      Enviar pedido por WhatsApp
+    </button>
+    <button class="cart-clear-btn" id="cartClearBtn">Vaciar carrito</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">✅ Agregado al carrito</div>
+
+<header class="hero">
+  <div class="hero-chip">🔥 Material que pasa todas las pruebas de seguridad</div>
+  <h1>M.N LATAM<br><em>Distribuidora Regional</em></h1>
+  <p class="hero-desc">
+    Billetes del Banco de México con la más alta calidad que encontrarás en México. Cada pieza está echa con precisión quirúrgica — pasan todas las pruebas de seguridad.
+  </p>
+  <div class="hero-note">
+    🔒 <strong>Compre bajo su propia responsabilidad:</strong> Operación confidencial.
+  </div>
+
+  <div class="bill-strip">
+    <div>
+      <div class="mini-bill mb-50">
+        <div class="mb-inner">
+          <div><div class="mb-label">Serie Ajolotes</div><div class="mb-denom">$50</div></div>
+          <div class="mb-stamp">G5</div>
+        </div>
+      </div>
+      <div class="mb-name">Ajolotes</div>
+    </div>
+    <div>
+      <div class="mini-bill mb-100">
+        <div class="mb-inner">
+          <div><div class="mb-label">Serie Sor Juana</div><div class="mb-denom">$100</div></div>
+          <div class="mb-stamp">G5</div>
+        </div>
+      </div>
+      <div class="mb-name">Sor Juana</div>
+    </div>
+    <div>
+      <div class="mini-bill mb-200">
+        <div class="mb-inner">
+          <div><div class="mb-label">Serie Hidalgo</div><div class="mb-denom">$200</div></div>
+          <div class="mb-stamp">G5</div>
+        </div>
+      </div>
+      <div class="mb-name">Hidalgo</div>
+    </div>
+    <div>
+      <div class="mini-bill mb-500">
+        <div class="mb-inner">
+          <div><div class="mb-label">Serie Juárez</div><div class="mb-denom">$500</div></div>
+          <div class="mb-stamp">G5</div>
+        </div>
+      </div>
+      <div class="mb-name">Juárez</div>
+    </div>
+    <div>
+      <div class="mini-bill mb-1000">
+        <div class="mb-inner">
+          <div><div class="mb-label">Serie Madero</div><div class="mb-denom">$1,000</div></div>
+          <div class="mb-stamp">G5</div>
+        </div>
+      </div>
+      <div class="mb-name">Madero</div>
+    </div>
+  </div>
+</header>
+
+<section class="section section-alt" id="muestras">
+  <div class="sec-head">
+    <div class="sec-tag">Sección 01 — Packs de Prueba</div>
+    <h2>Paquetes para probar calidad</h2>
+    <p>Confirma calidad antes de escalar a volumen.</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="prod-card">
+      <div class="card-bill-top mixed">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div>
+              <div class="bf-series">Surtido general</div>
+              <div class="denom-chips" style="margin-top:6px;">
+                <span class="denom-chip">$50</span><span class="denom-chip">$100</span>
+                <span class="denom-chip">$200</span><span class="denom-chip">$500</span>
+              </div>
+            </div>
+            <span class="bf-pieces-badge">Variado</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Muestra General Mixta</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$6,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$1,899</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Muestra General Mixta" data-price="$1,899" data-detail="Denominaciones variadas"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="muestra-mixta" data-name="Muestra General Mixta" data-price="$1,899" data-pricenum="1899" data-detail="Denominaciones variadas" data-denom="mixed">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-50">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Ajolotes</div><div class="bf-amount">$50</div><div class="bf-name">Billete idéntico al real</div></div>
+            <span class="bf-pieces-badge">100 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Lote $50 — Serie Ajolotes</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$5,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$1,699</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Lote $50 — Serie Ajolotes" data-price="$1,699" data-detail="100 piezas · Billete de $50"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="lote-50" data-name="Lote $50 — Serie Ajolotes" data-price="$1,699" data-pricenum="1699" data-detail="100 piezas · Billete de $50" data-denom="50">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-100">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Sor Juana</div><div class="bf-amount">$100</div><div class="bf-name">Billete idéntico al real</div></div>
+            <span class="bf-pieces-badge">50 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Lote $100 — Serie Sor Juana</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$5,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$1,599</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Lote $100 — Serie Sor Juana" data-price="$1,599" data-detail="50 piezas · Billete de $100"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="lote-100" data-name="Lote $100 — Serie Sor Juana" data-price="$1,599" data-pricenum="1599" data-detail="50 piezas · Billete de $100" data-denom="100">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-200">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Hidalgo</div><div class="bf-amount">$200</div><div class="bf-name">Billete idéntico al real</div></div>
+            <span class="bf-pieces-badge">25 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Lote $200 — Serie Hidalgo</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$5,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$1,499</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Lote $200 — Serie Hidalgo" data-price="$1,499" data-detail="25 piezas · Billete de $200"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="lote-200" data-name="Lote $200 — Serie Hidalgo" data-price="$1,499" data-pricenum="1499" data-detail="25 piezas · Billete de $200" data-denom="200">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-500">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Juárez</div><div class="bf-amount">$500</div><div class="bf-name">Billete idéntico al real</div></div>
+            <span class="bf-pieces-badge">10 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Lote $500 — Serie Juárez</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$5,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$1,399</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Lote $500 — Serie Juárez" data-price="$1,399" data-detail="10 piezas · Billete de $500"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="lote-500" data-name="Lote $500 — Serie Juárez" data-price="$1,399" data-pricenum="1399" data-detail="10 piezas · Billete de $500" data-denom="500">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-1000">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Madero</div><div class="bf-amount">$1,000</div><div class="bf-name">Billete idéntico al real</div></div>
+            <span class="bf-pieces-badge">5 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Lote $1,000 — Serie Madero</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$5,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$1,399</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Lote $1,000 — Serie Madero" data-price="$1,399" data-detail="5 piezas · Billete de $1,000"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="lote-1000" data-name="Lote $1,000 — Serie Madero" data-price="$1,399" data-pricenum="1399" data-detail="5 piezas · Billete de $1,000" data-denom="1000">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="volumen">
+  <div class="sec-head">
+    <div class="sec-tag">Sección 02 — Más Vendidos</div>
+    <h2>Denominaciónes</h2>
+    <p>Para mover mercancía rápido. El estándar del negocio, pacas cerradas listas para trabajar.</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="prod-card hot">
+      <span class="hot-label">⭐ Más Vendido</span>
+      <div class="card-bill-top mixed">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div>
+              <div class="bf-series">Surtido</div>
+              <div class="denom-chips" style="margin-top:6px;">
+                <span class="denom-chip">$50 Ajolotes</span><span class="denom-chip">$200 Hidalgo</span>
+              </div>
+            </div>
+            <span class="bf-pieces-badge">150 piezas</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Combo Pro Mixto</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$15,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$3,500</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Combo Pro Mixto ($50+$200)" data-price="$3,500" data-detail="150 piezas · Mix Ajolotes e Hidalgo"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="combo-pro" data-name="Combo Pro Mixto ($50+$200)" data-price="$3,500" data-pricenum="3500" data-detail="150 piezas · Mix Ajolotes e Hidalgo" data-denom="mixed">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-50">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Ajolotes</div><div class="bf-amount">$50</div></div>
+            <span class="bf-pieces-badge">200 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Bloque de $50 — Serie Ajolotes</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$10,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$2,800</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Bloque $50 — Serie Ajolotes" data-price="$2,800" data-detail="200 piezas · Billete de $50"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="bloque-50" data-name="Bloque $50 — Serie Ajolotes" data-price="$2,800" data-pricenum="2800" data-detail="200 piezas · Billete de $50" data-denom="50">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-100">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Sor Juana</div><div class="bf-amount">$100</div></div>
+            <span class="bf-pieces-badge">200 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Bloque de $100 — Serie Sor Juana</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$20,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$5,699</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Bloque $100 — Serie Sor Juana" data-price="$5,699" data-detail="200 piezas · Billete de $100"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="bloque-100" data-name="Bloque $100 — Serie Sor Juana" data-price="$5,699" data-pricenum="5699" data-detail="200 piezas · Billete de $100" data-denom="100">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-200">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Hidalgo</div><div class="bf-amount">$200</div></div>
+            <span class="bf-pieces-badge">100 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Bloque de $200 — Serie Hidalgo</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$20,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$4,500</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Bloque $200 — Serie Hidalgo" data-price="$4,500" data-detail="100 piezas · Billete de $200"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="bloque-200" data-name="Bloque $200 — Serie Hidalgo" data-price="$4,500" data-pricenum="4500" data-detail="100 piezas · Billete de $200" data-denom="200">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-500">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Juárez</div><div class="bf-amount">$500</div></div>
+            <span class="bf-pieces-badge">100 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Bloque de $500 — Serie Juárez</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$50,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$11,500</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Bloque $500 — Serie Juárez" data-price="$11,500" data-detail="100 piezas · Billete de $500"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="bloque-500" data-name="Bloque $500 — Serie Juárez" data-price="$11,500" data-pricenum="11500" data-detail="100 piezas · Billete de $500" data-denom="500">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="card-bill-top denom-1000">
+        <div class="bill-face">
+          <div class="bf-row">
+            <div><div class="bf-series">Serie Madero</div><div class="bf-amount">$1,000</div></div>
+            <span class="bf-pieces-badge">50 piezas</span>
+          </div>
+          <div class="bf-stamp">G5</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-label">Bloque de $1,000 — Serie Madero</div>
+        <div class="card-meta-row">
+          <div class="meta-item"><span class="meta-l">Valor </span><span class="meta-v">$50,000</span></div>
+          <div class="meta-item" style="text-align:right"><span class="meta-l">Tu inversión</span><span class="meta-v invest">$10,500</span></div>
+        </div>
+        <div class="card-actions">
+          <button class="card-cta-direct" data-name="Bloque $1,000 — Serie Madero" data-price="$10,500" data-detail="50 piezas · Billete de $1,000"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Comprar directo</button>
+          <button class="card-cta-cart" data-id="bloque-1000" data-name="Bloque $1,000 — Serie Madero" data-price="$10,500" data-pricenum="10500" data-detail="50 piezas · Billete de $1,000" data-denom="1000">🛒 Agregar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section-alt" id="Lotes para revender">
+  <div class="sec-head">
+    <div class="sec-tag">Sección 03 — Paquetes de Mayoreo</div>
+    <h2>Paquete de mayoreo</h2>
+    <p>Denominación a elegir, protocolo de entrega confidencial.</p>
+  </div>
+  <div class="wholesale-grid">
+
+    <div class="ws-card silver">
+      <div class="ws-top">
+        <div class="ws-tier-badge">Nivel Silver</div>
+        <div class="ws-name">Paca Silver</div>
+        <div class="ws-sub">Denominación a elegir · Coordinación directa</div>
+      </div>
+      <div class="ws-body">
+        <div class="ws-pricing">
+          <div class="ws-p"><span class="ws-pl">Valor </span><span class="ws-vv">$100,000</span></div>
+          <div class="ws-p" style="text-align:right"><span class="ws-pl">Inversión</span><span class="ws-iv">$20,000</span></div>
+        </div>
+        <div class="ws-actions">
+          <a class="ws-cta-wa" href="#" data-name="Lote Silver — Mayorista" data-price="$20,000" data-detail="Valor  $100,000 · Denominación a elegir"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Contactar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ws-card gold-tier">
+      <div class="ws-top">
+        <div class="ws-tier-badge">⭐ Nivel Gold</div>
+        <div class="ws-name">Paca Gold</div>
+        <div class="ws-sub">Denominación a elegir · Máximo volumen</div>
+      </div>
+      <div class="ws-body">
+        <div class="ws-pricing">
+          <div class="ws-p"><span class="ws-pl">Valor </span><span class="ws-vv">$250,000</span></div>
+          <div class="ws-p" style="text-align:right"><span class="ws-pl">Inversión</span><span class="ws-iv">$45,000</span></div>
+        </div>
+        <div class="ws-actions">
+          <a class="ws-cta-wa" href="#" data-name="Lote Gold — Mayorista" data-price="$45,000" data-detail="Valor  $250,000 · Denominación a elegir"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg> Contactar por WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="logistica">
+  <div class="sec-head">
+    <div class="sec-tag">Entrega</div>
+    <h2>¿Cómo son las entregas?</h2>
+    <p>Métodos de entrega.</p>
+  </div>
+  <div class="lg-grid">
+    <div class="lg-card">
+      <div class="lg-icon">📍</div>
+      <div class="lg-num">01</div>
+      <div class="lg-title">CONTRA ENTREGA — Morelos</div>
+      <div class="lg-desc">Pago contra entrega en Plaza Galerías (Cuernavaca). Pagas al recibir (Solo disponible en Morelos)</div>
+      <span class="lg-detail">2:00 pm – 8:00 pm</span>
+    </div>
+    <div class="lg-card">
+      <div class="lg-icon">⚡</div>
+      <div class="lg-num">02</div>
+      <div class="lg-title">EXPRESS — Entrega el mismo día (Disponible solo para CDMX, ESTADO DE MÉXICO, PUEBLA Y GDL) </div>
+      <div class="lg-desc">Entrega el mismo día en 3–4 horas. Requiere pago previo para despachar al chofer.</div>
+      <span class="lg-detail">Confirmar disponibilidad</span>
+    </div>
+    <div class="lg-card">
+      <div class="lg-icon">📦</div>
+      <div class="lg-num">03</div>
+      <div class="lg-title">Paquetería Nacional</div>
+      <div class="lg-desc">1–2 días hábiles al resto del país. Envíos camuflados y seguros, pago previo requerido.</div>
+      <span class="lg-detail">Rastreo incluido</span>
+    </div>
+    <div class="lg-card">
+      <div class="lg-icon">🔒</div>
+      <div class="lg-num">04</div>
+      <div class="lg-title">Confidencialidad</div>
+      <div class="lg-desc">Todo paquete va protegido y totalmente seguro, embalado de forma discreta.</div>
+      <span class="lg-detail">Operación confidencial</span>
+    </div>
+  </div>
+  <div class="legal-box">
+    <span style="font-size:1.4rem;flex-shrink:0;">⚖️</span>
+    <p><strong>Aviso de seguridad:</strong> Los billetes son muy realistas son la mejor calidad que encontrarás en México (textura, marcas y gramaje idénticos al original). Una vez concretada la entrega, M.N LATAM se deslinda por completo del uso que se le dé a la mercancía. Compre bajo su propia responsabilidad.</p>
+  </div>
+</section>
+
+<section class="final-cta" id="contacto">
+  <h2>¿Necesitas un lote de mayor volumen?</h2>
+  <p>Envíos a todo mexico. Mandanos mensaje directo y te cotizamos.</p>
+  <div class="cta-row">
+    <a href="https://wa.me/5212225460766?text=%C2%BFMe%20puede%20dar%20informaci%C3%B3n%20sobre%20como%20puedo%20adquirir%20un%20lote%20de%20mayor%20volumen%3F" class="btn-wa" target="_blank">
+
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+      Cotizar por WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a href="#">M.N <span style="color:var(--gold)">LATAM</span></a>
+  <p>© 2026 Todos los derechos reservados a Mercado Negro LATAM y asociados</p>
+  <p style="opacity:.5">Operación nacional · Máxima discreción</p>
+</footer>
+
+<script>
+// ═══════════════════════════════════════
+//  CONFIGURACIÓN CENTRAL
+// ═══════════════════════════════════════
+const WA_NUMBER = '5212225460766';
+
+const DENOM_COLORS = {
+  '50':    '#3a7d5a',
+  '100':   '#7b3fa0',
+  '200':   '#b84a2e',
+  '500':   '#2a5f9e',
+  '1000':  '#1a1a1a',
+  'mixed': 'linear-gradient(135deg,#3a7d5a,#b84a2e)',
+};
+
+// ═══════════════════════════════════════
+//  ESTADO DEL CARRITO
+// ═══════════════════════════════════════
+let cart = {};
+
+// ─── TOGGLE PANEL ───
+function toggleCart() {
+  const overlay = document.getElementById('cartOverlay');
+  const panel   = document.getElementById('cartPanel');
+  const isOpen  = panel.classList.contains('open');
+  overlay.classList.toggle('open', !isOpen);
+  panel.classList.toggle('open', !isOpen);
+  document.body.style.overflow = isOpen ? '' : 'hidden';
+}
+
+// ─── ADD TO CART ───
+function addToCart(btn) {
+  const id       = btn.dataset.id;
+  const name     = btn.dataset.name;
+  const price    = btn.dataset.price;
+  const priceNum = parseInt(btn.dataset.pricenum, 10);
+  const detail   = btn.dataset.detail;
+  const denom    = btn.dataset.denom;
+
+  if (cart[id]) {
+    cart[id].qty++;
+  } else {
+    cart[id] = { name, price, priceNum, detail, denom, qty: 1 };
+  }
+  renderCart();
+  updateCount();
+  showToast('✅ ' + name + ' — agregado');
+
+  const orig = btn.innerHTML;
+  btn.innerHTML = '✓ Agregado';
+  btn.classList.add('added');
+  setTimeout(function() { btn.innerHTML = orig; btn.classList.remove('added'); }, 1800);
+}
+
+// ─── REMOVE / QTY ───
+function removeFromCart(id) {
+  delete cart[id];
+  renderCart();
+  updateCount();
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty += delta;
+  if (cart[id].qty <= 0) delete cart[id];
+  renderCart();
+  updateCount();
+}
+
+function clearCart() {
+  cart = {};
+  renderCart();
+  updateCount();
+}
+
+// ─── RENDER CART ───
+function renderCart() {
+  const itemsEl  = document.getElementById('cartItems');
+  const footerEl = document.getElementById('cartFooter');
+  const totalEl  = document.getElementById('cartTotal');
+  const keys     = Object.keys(cart);
+
+  if (keys.length === 0) {
+    itemsEl.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">📦</div><p>Tu carrito está vacío.<br>Agrega paquetes para cotizar.</p></div>';
+    footerEl.style.display = 'none';
+    return;
+  }
+
+  let total = 0;
+  let html  = '';
+
+  keys.forEach(function(id) {
+    const item     = cart[id];
+    const subtotal = item.priceNum * item.qty;
+    total += subtotal;
+    const colorStyle = item.denom === 'mixed'
+      ? 'background:' + DENOM_COLORS['mixed']
+      : 'background:' + (DENOM_COLORS[item.denom] || '#555');
+    const denomLabel = item.denom === 'mixed' ? 'MIX' : '$' + item.denom;
+
+    html += [
+      '<div class="cart-item">',
+        '<div class="cart-item-color" style="' + colorStyle + '">' + denomLabel + '</div>',
+        '<div class="cart-item-info">',
+          '<div class="cart-item-name">' + item.name + '</div>',
+          '<div class="cart-item-detail">' + item.detail + '</div>',
+        '</div>',
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">',
+          '<div class="cart-item-price">' + formatMXN(subtotal) + '</div>',
+          '<div class="cart-item-qty">',
+            '<button class="qty-btn" data-action="dec" data-id="' + id + '">−</button>',
+            '<span class="qty-num">' + item.qty + '</span>',
+            '<button class="qty-btn" data-action="inc" data-id="' + id + '">+</button>',
+            '<button class="cart-remove" data-action="remove" data-id="' + id + '" title="Eliminar">🗑</button>',
+          '</div>',
+        '</div>',
+      '</div>'
+    ].join('');
+  });
+
+  itemsEl.innerHTML = html;
+  footerEl.style.display = 'flex';
+  totalEl.textContent = formatMXN(total);
+}
+
+// ─── UPDATE BADGE ───
+function updateCount() {
+  const countEl = document.getElementById('cartCount');
+  const total   = Object.values(cart).reduce(function(s, i) { return s + i.qty; }, 0);
+  if (total === 0) {
+    countEl.classList.add('hidden');
+  } else {
+    countEl.classList.remove('hidden');
+    countEl.textContent = total;
+  }
+}
+
+// ─── SEND CART → WHATSAPP ───
+function sendCartToWA() {
+  const keys = Object.keys(cart);
+  if (keys.length === 0) return;
+
+  var lines = ['Hola! 👋 Me interesa hacer el siguiente pedido de *M.N LATAM*:', ''];
+  var total = 0;
+
+  keys.forEach(function(id) {
+    const item     = cart[id];
+    const subtotal = item.priceNum * item.qty;
+    total += subtotal;
+    lines.push('▸ *' + item.name + '*');
+    lines.push('   ' + item.detail);
+    lines.push('   Cantidad: ' + item.qty + ' × ' + item.price + ' = ' + formatMXN(subtotal));
+    lines.push('');
+  });
+
+  lines.push('💰 *Total estimado: ' + formatMXN(total) + '*');
+  lines.push('');
+  lines.push('¿Pueden confirmar disponibilidad y coordinar la entrega? 🎬');
+
+  const msg = encodeURIComponent(lines.join('\n'));
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+}
+
+// ─── BUY NOW (directo desde botón) ───
+function buyNow(btn) {
+  const name   = btn.dataset.name;
+  const price  = btn.dataset.price;
+  const detail = btn.dataset.detail;
+
+  const text = 'Hola! 👋 Quiero adquirir el siguiente paquete de *M.N LATAM*:\n\n' +
+    '▸ *' + name + '*\n' +
+    '   ' + detail + '\n' +
+    '   Inversión: *' + price + '*\n\n' +
+    '¿Pueden confirmar disponibilidad y coordinar la entrega? 🎬';
+
+  const msg = encodeURIComponent(text);
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+}
+
+// ─── HELPERS ───
+function formatMXN(n) {
+  return '$' + n.toLocaleString('es-MX');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 2600);
+}
+
+// ─── BIND BUTTONS ───
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Botón carrito nav
+  var cartNavBtn = document.getElementById('cartNavBtn');
+  if (cartNavBtn) cartNavBtn.addEventListener('click', toggleCart);
+
+  // Overlay cierra carrito
+  var overlay = document.getElementById('cartOverlay');
+  if (overlay) overlay.addEventListener('click', toggleCart);
+
+  // Botón cerrar carrito
+  var cartCloseBtn = document.getElementById('cartCloseBtn');
+  if (cartCloseBtn) cartCloseBtn.addEventListener('click', toggleCart);
+
+  // Botón vaciar carrito
+  var cartClearBtn = document.getElementById('cartClearBtn');
+  if (cartClearBtn) cartClearBtn.addEventListener('click', clearCart);
+
+  // Botón enviar carrito a WA
+  var cartWaBtn = document.getElementById('cartWaBtn');
+  if (cartWaBtn) cartWaBtn.addEventListener('click', sendCartToWA);
+
+  // Botones "Agregar al carrito"
+  document.querySelectorAll('.card-cta-cart').forEach(function(btn) {
+    btn.addEventListener('click', function() { addToCart(btn); });
+  });
+
+  // Botones "Comprar directo"
+  document.querySelectorAll('.card-cta-direct').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      buyNow(btn);
+    });
+  });
+
+  // Botones mayorista WA
+  document.querySelectorAll('.ws-cta-wa').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      buyNow(btn);
+    });
+  });
+
+  // Delegación para botones qty/remove del carrito (se generan dinámicamente)
+  document.getElementById('cartItems').addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-action]');
+    if (!btn) return;
+    var action = btn.dataset.action;
+    var id     = btn.dataset.id;
+    if (action === 'inc')    changeQty(id,  1);
+    if (action === 'dec')    changeQty(id, -1);
+    if (action === 'remove') removeFromCart(id);
+  });
+
+});
+</script>
+</body>
+</html>
